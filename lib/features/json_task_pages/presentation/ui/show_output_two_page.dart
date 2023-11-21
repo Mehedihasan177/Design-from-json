@@ -1,21 +1,21 @@
-import 'package:codeware_task/features/quizz_page/presentation/ui/widgets/global_gridview.dart';
+import 'package:codeware_task/features/json_task_pages/presentation/ui/widgets/global_gridview.dart';
 import 'package:flutter/material.dart';
 import '../fetch_data_function/fetch_data_function.dart';
 
-class ShowOutputOne extends StatefulWidget {
-  const ShowOutputOne({super.key});
+class ShowOutputTwoPage extends StatefulWidget {
+  const ShowOutputTwoPage({super.key});
 
   @override
-  State<ShowOutputOne> createState() => _ShowOutputOneState();
+  State<ShowOutputTwoPage> createState() => _ShowOutputTwoPageState();
 }
 
-class _ShowOutputOneState extends State<ShowOutputOne> {
+class _ShowOutputTwoPageState extends State<ShowOutputTwoPage> {
   TextEditingController searchTextField = TextEditingController();
 
   @override
   void initState() {
     Future.delayed(const Duration(microseconds: 200), () {
-      DataFetchFunction().fetchAllApplicantData(outputType: "outputOne");
+      DataFetchFunction().fetchAllApplicantData(outputType: "outputTwo");
       setState(() {});
     });
     super.initState();

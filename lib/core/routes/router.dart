@@ -1,8 +1,9 @@
 import 'package:codeware_task/core/routes/route_name.dart';
-import 'package:codeware_task/features/quizz_page/presentation/ui/show_output_one_page.dart';
 import 'package:flutter/material.dart';
-import '../../features/quizz_page/presentation/ui/homepage.dart';
-import '../../features/quizz_page/presentation/ui/show_output_two_page.dart';
+
+import '../../features/json_task_pages/presentation/ui/homepage.dart';
+import '../../features/json_task_pages/presentation/ui/show_output_one_page.dart';
+import '../../features/json_task_pages/presentation/ui/show_output_two_page.dart';
 import '../../features/splash_screen/splash_screen.dart';
 
 class RouteGenerator {
