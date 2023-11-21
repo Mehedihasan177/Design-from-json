@@ -25,7 +25,7 @@ class _ShowOutputOneState extends State<ShowOutputOne> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Output One"),
+        title: const Text("Output One"),
       ),
       body: Column(
         children: [
@@ -35,7 +35,20 @@ class _ShowOutputOneState extends State<ShowOutputOne> {
               controller: searchTextField,
               onChanged: (value) {
                 setState(() {
-                  DataFetchFunction().filterListById(value);
+    if(searchTextField.text.isEmpty && value.isEmpty){
+    DataFetchFunction.noDataFound = false;
+    DataFetchFunction().filterListById(value);
+    }
+    else {
+      if (DataFetchFunction()
+          .filterListById(value)
+          .isEmpty) {
+        DataFetchFunction.noDataFound = true;
+      } else {
+        DataFetchFunction.noDataFound = false;
+        DataFetchFunction().filterListById(value);
+      }
+    }
                 });
               },
               decoration: InputDecoration(
@@ -44,12 +57,13 @@ class _ShowOutputOneState extends State<ShowOutputOne> {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.clear),
+                  icon: const Icon(Icons.clear),
                   onPressed: () {
                     setState(() {
                       DataFetchFunction.filteredAndroidVersion.clear();
                       searchTextField.clear();
                       DataFetchFunction().filterListById('');
+                      DataFetchFunction.noDataFound = false;
                     });
                   },
                 ),
@@ -57,25 +71,18 @@ class _ShowOutputOneState extends State<ShowOutputOne> {
             ),
           ),
           Expanded(
-            child: GlobalGridView(),
+            child: DataFetchFunction.noDataFound? const Center(
+    child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+    Icon(Icons.search, size: 90, color: Colors.black12,),
+    Text("No Data Found", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)
+    ],
+    )
+    ) : GlobalGridView(),
           ),
-          // Expanded(
-          //   child: ListView.builder(
-          //     itemCount: DataFetchFunction.filteredAndroidVersion.length,
-          //     itemBuilder: (context, index) {
-          //       var item = DataFetchFunction.filteredAndroidVersion[index];
-          //       return Card(
-          //         shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(5.0),
-          //         ),
-          //         child: Padding(
-          //           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-          //           child: Text("${item.title}"),
-          //         ),
-          //       );
-          //     },
-          //   ),
-          // ),
+
         ],
       ),
     );

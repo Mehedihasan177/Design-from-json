@@ -25,9 +25,9 @@ class _GlobalGridViewState extends State<GlobalGridView> {
       ),
       itemBuilder: (BuildContext context, int index) {
         var item = DataFetchFunction.filteredAndroidVersion[index];
-        return Card(
+        return  Card(
           child: Center(
-            child: Text("${item.title}", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, fontFamily: "RobotoMono"),),
+            child: Text("${item.id}. ${item.title}", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, fontFamily: "RobotoMono"),),
           ),
         );
       },

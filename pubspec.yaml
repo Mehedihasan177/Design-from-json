@@ -71,6 +71,7 @@ flutter:
     - assets/json_file/output_one.json
     - assets/json_file/output_two.json
     - assets/image/logo.jpg
+    - assets/image/nodatafound.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

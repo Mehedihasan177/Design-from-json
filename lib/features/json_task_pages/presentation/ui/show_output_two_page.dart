@@ -1,3 +1,4 @@
+import 'package:codeware_task/core/utils/consts/app_assets.dart';
 import 'package:codeware_task/features/json_task_pages/presentation/ui/widgets/global_gridview.dart';
 import 'package:flutter/material.dart';
 import '../fetch_data_function/fetch_data_function.dart';
@@ -25,7 +26,7 @@ class _ShowOutputTwoPageState extends State<ShowOutputTwoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Output One"),
+        title: const Text("Output Two"),
       ),
       body: Column(
         children: [
@@ -35,7 +36,20 @@ class _ShowOutputTwoPageState extends State<ShowOutputTwoPage> {
               controller: searchTextField,
               onChanged: (value) {
                 setState(() {
-                  DataFetchFunction().filterListById(value);
+                  if(searchTextField.text.isEmpty && value.isEmpty){
+                    DataFetchFunction.noDataFoundTwo = false;
+                    DataFetchFunction().filterListById(value);
+                  }
+                  else {
+                    if (DataFetchFunction()
+                        .filterListById(value)
+                        .isEmpty) {
+                      DataFetchFunction.noDataFoundTwo = true;
+                    } else {
+                      DataFetchFunction.noDataFoundTwo = false;
+                      DataFetchFunction().filterListById(value);
+                    }
+                  }
                 });
               },
               decoration: InputDecoration(
@@ -44,12 +58,13 @@ class _ShowOutputTwoPageState extends State<ShowOutputTwoPage> {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.clear),
+                  icon: const Icon(Icons.clear),
                   onPressed: () {
                     setState(() {
                       DataFetchFunction.filteredAndroidVersion.clear();
                       searchTextField.clear();
                       DataFetchFunction().filterListById('');
+                      DataFetchFunction.noDataFoundTwo = false;
                     });
                   },
                 ),
@@ -57,25 +72,17 @@ class _ShowOutputTwoPageState extends State<ShowOutputTwoPage> {
             ),
           ),
           Expanded(
-            child: GlobalGridView(),
+            child: DataFetchFunction.noDataFoundTwo? const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.search, size: 90, color: Colors.black12,),
+                    Text("No Data Found", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)
+                  ],
+                )
+            ) :GlobalGridView(),
           ),
-          // Expanded(
-          //   child: ListView.builder(
-          //     itemCount: DataFetchFunction.filteredAndroidVersion.length,
-          //     itemBuilder: (context, index) {
-          //       var item = DataFetchFunction.filteredAndroidVersion[index];
-          //       return Card(
-          //         shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(5.0),
-          //         ),
-          //         child: Padding(
-          //           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-          //           child: Text("${item.title}"),
-          //         ),
-          //       );
-          //     },
-          //   ),
-          // ),
         ],
       ),
     );

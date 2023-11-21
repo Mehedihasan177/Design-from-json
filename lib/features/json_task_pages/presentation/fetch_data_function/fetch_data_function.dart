@@ -7,10 +7,11 @@ import '../../domain/usecase/jsonTask_pass_usecase.dart';
 class DataFetchFunction{
   static var androidVersion = [];
   static var filteredAndroidVersion = [];
+  static var noDataFound = false;
+  static var noDataFoundTwo = false;
    void fetchAllApplicantData({required String outputType}) async {
     final questionPassUseCase = JsonTaskPassUseCase(locator<JsonTaskRepository>());
     var response = await questionPassUseCase(outputType: outputType);
-
     try {
       if (response?.data != null && response!.data!.isNotEmpty) {
         var newAndroidVersions = response!.data!.expand((element) {
@@ -37,7 +38,7 @@ class DataFetchFunction{
       logger.e(e.toString());
     }
   }
-  void filterListById(String id) {
+  List filterListById(String id) {
       if (id.isEmpty) {
         // If the input is empty, show the entire list
         filteredAndroidVersion.clear();
@@ -48,5 +49,6 @@ class DataFetchFunction{
             .where((item) => item.id == int.tryParse(id))
             .toList();
       }
+      return filteredAndroidVersion;
   }
 }
