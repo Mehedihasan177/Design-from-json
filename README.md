@@ -1,6 +1,17 @@
 # codeware_task
+JSON parse without using any state management
+#Features:
+Dependency injection using locator
+Clean architecture pattern
 
-A new Flutter project.
+#Dependencies:
+get_it: ^7.6.4
+logger: ^2.0.2+1
+flutter_launcher_icons: ^0.13.1
+#How to Run:
+Clone this repository.
+Open the project in Android Studio.
+Build and run the app on an emulator or physical device.
 
 ## Getting Started
 ![Screenshot_2023-11-22-01-27-19-242_com example codeware_task](https://github.com/Mehedihasan177/codeware_task/assets/68287045/c38df012-5b08-4b24-824f-103e8af2a874)
