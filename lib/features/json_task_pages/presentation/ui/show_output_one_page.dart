@@ -16,7 +16,9 @@ class _ShowOutputOneState extends State<ShowOutputOne> {
   void initState() {
     Future.delayed(const Duration(microseconds: 200), () {
       DataFetchFunction().fetchAllApplicantData(outputType: "outputOne");
-      setState(() {});
+      setState(() {
+        DataFetchFunction.noDataFound = false;
+      });
     });
     super.initState();
   }

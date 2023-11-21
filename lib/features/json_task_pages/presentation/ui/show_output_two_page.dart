@@ -17,7 +17,9 @@ class _ShowOutputTwoPageState extends State<ShowOutputTwoPage> {
   void initState() {
     Future.delayed(const Duration(microseconds: 200), () {
       DataFetchFunction().fetchAllApplicantData(outputType: "outputTwo");
-      setState(() {});
+      setState(() {
+        DataFetchFunction.noDataFoundTwo = false;
+      });
     });
     super.initState();
   }
